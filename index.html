@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>บริการสบายแคช รีไฟแนนซ์</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <style>
+    body {
+        font-family: 'Kanit', sans-serif;
+        background-image: url('assets/images/bg-fi.jpg');
+        background-position: top center;
+        background-repeat: no-repeat;
+    }
+    @media (min-width: 769px) {
+        .container {
+            width: 520px;
+        }
+    }
+    @media (max-width: 768px) {
+        .container {
+            width: 412px;
+        }
+    }
+    header {
+        background-color: #ff0000;
+        padding: 10px 0;
+        height: 65px;
+        color: #fff;
+        text-align: center;
+        font-size: 15pt;
+    }
+    header p {
+        margin-top: 7px;
+    }
+    .top-head {
+        background-color: #ebfcef;
+        border-radius: 10px;
+        border: solid 2px #adddb8;
+        margin-top: 15px;
+        height: 123px;
+    }
+    .top-head .hand img {
+        margin: 0 30px 0 15px;
+        height: 120px;
+        float: left;
+    }
+    .top-head .detail {
+        padding: 20px 20px 0 0;
+    }
+    .ads-r {
+        float:right;
+        width:170px;
+        z-index: 100;
+        right: 10px;
+        margin: 25px 25px 0 0;
+    }
+    .ads-l {
+        position: absolute;
+        width:389px;
+        margin-top: 35px;
+    }
+    @media (max-width: 456px) {
+        .ads-r {
+            width:150px;
+            margin: 20px 5px 0 0;
+        }
+        .ads-l {
+            width:395px;
+            margin-top: 0px;
+        }
+        .top-head .detail {
+            padding: 15px 0 0 0;
+        }
+        .top-head .hand img {
+            margin: 0 15px 0 15px;
+        }
+    }
+    .calculator {
+    }
+    .promotion-img {
+        height: 440px;
+    }
+    .btn-primary {
+        background-color: #ff0000;
+        border-color: #ff0000;
+    }
+    .btn-primary:hover {
+        background-color: #ff0000;
+        border-color: #ff0000;
+    }
+    .align-center {
+        text-align: center;
+    }
+    .small, small {
+        font-size: .65em;
+        color: #5c5c5c;
+    }
+    table th {
+        background: linear-gradient(0deg, rgba(175,3,3,1) 0%, rgba(255, 0, 0, 1) 100%);
+        color: #fff !important;
+        text-align: center;
+    }
+    .book {
+        background: rgb(3,64,175);
+        background: linear-gradient(0deg, rgba(3,64,175,1) 0%, rgba(0,138,255,1) 100%); 
+    }
+    .table>thead {
+        vertical-align: middle;
+        line-height: 20px;
+    }
+    th {
+        vertical-align: middle;
+    }
+    td {
+        vertical-align: middle;
+        line-height: 16px;
+        height: 50px;
+    }
+    .th-l {
+        border-radius: 10px 0 0 0;
+    }
+    .th-r {
+        border-radius: 0 10px 0 0;
+    }
+    .tf-l {
+        border-radius: 0 0 0 10px;
+    }
+    .tf-r {
+        border-radius: 0 0 10px 0;
+        height: 60px;
+    }
+    .cal-topic {
+        background-color: #fda6ad !important;
+    }
+    .cal-refi {
+        background-color: #ffedee !important;
+        text-align:center; 
+    }
+    .cal-book {
+        background-color: #d5effc !important;
+        text-align:center; 
+    }
+    .table {
+        --bs-table-border-color: #900000;
+        border-radius: 20px;
+    }
+    .discalmer {
+        font-size: 10pt;
+    }
+    tfoot {
+        border-color: #ffffff;
+    }
+    </style>
+  </head>
+  <body>
+    <header>
+        <p>เทียบเห็นๆ</p>
+    </header>
+    <div class="container">
+        <div class="promotion-img mt-2">
+            <div class="ads-r animate__animated animate__fadeInDown">
+                <img src="assets/images/call-to-action.png" class="img-fluid">
+            </div>
+            <div class="ads-l animate__animated animate__fadeInLeft">
+                <img src="assets/images/man.png" class="img-fluid">
+            </div>
+        </div>
+        <div class="calculator" id="refi">
+            <div class="row">
+                <div class="col-12">
+                    <div class="form-group">
+                        <labe>จำนวนเงินกู้</labe>
+                        <input type="text" class="form-control mt-2" v-model="cal.loan" placeholder="ใส่จำนวนเงินที่ต้องการ">
+                    </div>
+                    <div class="form-group mt-2">
+                        <label for="customRange2" class="form-label">ผ่อนจำนวน</label>
+                        <select class="form-select" v-model="cal.installments">
+                            <option value="36">36 งวด</option>
+                            <option value="48">48 งวด</option>
+                            <option value="60">60 งวด</option>
+                            <option value="72">72 งวด</option>
+                            <option value="84">84 งวด</option>
+                        </select>
+                    </div>
+                </div>  
+            </div>
+            <div class="compare">
+                <div class="row">
+                    <div class="col-12" style="text-align: center;">
+                        <img src="assets/images/head-topic.png" class="mt-4 mb-2" style="width:85%;">
+                    </div>
+                    <div class="col-12">
+                        <table class="table mt-3">
+                            <thead>
+                                <tr>
+                                    <th class="th-l">เปรียบเทียบ<br />กับเจ้าอื่นๆ</th>
+                                    <th width="33%">รีไฟแนนซ์<br />รถกับเรา</th>
+                                    <th width="33%" class="book th-r">จำนำเล่มทะเบียน</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="cal-topic">1. จำนวนเงิน</td>
+                                    <td class="cal-refi">{{ cal.toLoan }} บาท</td>
+                                    <td class="cal-book">{{ cal.toLoan }} บาท</td>
+                                </tr>
+                                <tr>
+                                    <td class="cal-topic">2. จำนวนงวด</td>
+                                    <td class="cal-refi">สูงสุด {{ cal.installments }} งวด</td>
+                                    <td class="cal-book">สูงสุด {{ cal.instBook }} งวด</td>
+                                </tr>
+                                <tr>
+                                    <td class="cal-topic">3. ดอกเบี้ย</td>
+                                    <td class="cal-refi"><small>ดอกเบี้ยแบบคงที่</small><br /><span style="font-weight: 700;color: #ff0000;">6.8% ต่อปี</span></td>
+                                    <td class="cal-book"><small>แบบลดต้นลดดอก</small><br /><span style="font-weight: 700;color: #ff0000;">23.1% ต่อปี</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="cal-topic">4. ผ่อนต่องวด</td>
+                                    <td class="cal-refi">{{ out.paymonthfi }} บาท</td>
+                                    <td class="cal-book">{{ out.paymonthbook }} บาท</td>
+                                </tr>
+                                <tr>
+                                    <td  class="cal-topic">5. รวมดอกเบี้ย<br />
+                                        <small style="color:#000;padding-left:15px;">ตลอดอายุสัญญา</small>
+                                    </td>
+                                    <td class="cal-refi">{{ out.payratefi }} บาท</td>
+                                    <td class="cal-book">{{ out.payratebook }} บาท</td>
+                                </tr>
+                                <tr>
+                                    <td  class="cal-topic">6. ค่าธรรมเนียม
+                                    </td>
+                                    <td class="cal-refi">10,000 บาท</td>
+                                    <td class="cal-book">0 บาท</td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th colspan="2" class="tf-l">สรุป ประหยัดค่าใช้จ่ายรวมตลอดอายุสัญญา</th>
+                                    <th class="tf-r">{{ out.save }} บาท*</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                        <p class="discalmer mb-4">หมายเหตุ : *เงื่อนไขเป็นไปตามที่บริษัทฯ กําหนด อัตราดอกเบี้ย และค่าธรรมเนียมอาจมีการเปลี่ยนแปลงขึ้นอยู่กับสถาบันการเงินที่ร่วมรายการ</p>
+                    </div>  
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.1/axios.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script>
+        var refi = new Vue({
+            el: '#refi',
+            data: {
+                cal: {
+                    loan: '',
+                    toLoan: '0',
+                    installments: 48,
+                    instBook: 48,
+                    firate: 6.8,
+                    bookrate: 13.90
+                },
+                out: {
+                    paymonthfi: 0,
+                    paymonthbook: 0,
+                    payratefi: 0,
+                    payratebook: 0,
+                    save: 0
+                }
+            },
+            watch: {
+                cal: {
+                    deep: true,
+                    handler() {
+                        this.cal.toLoan = parseInt(this.cal.loan).toLocaleString('th-TH');
+
+                        if(this.cal.installments == 36) {
+                            this.cal.instBook = 36;
+                        } else if(this.cal.installments == 48) {
+                            this.cal.instBook = 48;
+                        } else if(this.cal.installments == 60) {
+                            this.cal.instBook = 60;
+                        } else if(this.cal.installments >= 72) {
+                            this.cal.instBook = 60;
+                        } 
+                        this.out.payratefi =  parseInt(((this.cal.loan * (this.cal.firate * (this.cal.installments / 12))) / 100).toFixed(0)).toLocaleString('th-TH')
+
+
+                        this.out.payratebook =  parseInt(((this.cal.loan * ((this.cal.bookrate) * (this.cal.instBook / 12))) / 100).toFixed(0)).toLocaleString('th-TH')
+
+
+                        this.out.paymonthfi =  parseInt(((parseInt(((this.cal.loan * (this.cal.firate * (this.cal.installments / 12))) / 100)) + parseInt(this.cal.loan)) / this.cal.installments).toFixed(0)).toLocaleString('th-TH')
+                        this.out.paymonthbook = parseInt(((parseInt(((this.cal.loan * ((this.cal.bookrate) * (this.cal.instBook / 12))) / 100)) + parseInt(this.cal.loan)) / this.cal.instBook).toFixed(0)).toLocaleString('th-TH')
+
+                        this.out.save = parseInt(parseInt(((this.cal.loan * (this.cal.bookrate * (this.cal.instBook / 12))) / 100).toFixed(0)) - (parseInt(((this.cal.loan * (this.cal.firate * (this.cal.installments / 12))) / 100).toFixed(0))) - parseInt(10000)).toLocaleString('th-TH')
+                    }
+                }
+            },
+        });
+    </script>
+</body>
+</html>
