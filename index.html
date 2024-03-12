@@ -160,6 +160,13 @@
     tfoot {
         border-color: #ffffff;
     }
+    .ins-top{
+        font-size: 10pt;
+    }
+    .swal-text {
+        font-size: 22px;
+        text-align: center;
+    }
     </style>
   </head>
   <body>
@@ -180,7 +187,7 @@
                 <div class="col-12">
                     <div class="form-group">
                         <labe>จำนวนเงินกู้</labe>
-                        <input type="text" class="form-control mt-2" v-model="cal.loan" placeholder="ใส่จำนวนเงินที่ต้องการ">
+                        <input type="text"  class="form-control mt-2" v-model="cal.loan" maxlength="9" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" onkeyup="javascript:this.value=Comma(this.value);" placeholder="ใส่จำนวนเงินที่ต้องการ">
                     </div>
                     <div class="form-group mt-2">
                         <label for="customRange2" class="form-label">ผ่อนจำนวน</label>
@@ -216,8 +223,8 @@
                                 </tr>
                                 <tr>
                                     <td class="cal-topic">2. จำนวนงวด</td>
-                                    <td class="cal-refi">{{ cal.installments }} งวด</td>
-                                    <td class="cal-book">{{ cal.instBook }} งวด</td>
+                                    <td class="cal-refi"><span class="ins-top" v-if="cal.installments == '84'">สูงสุด</span> {{ cal.installments }} งวด</td>
+                                    <td class="cal-book"><span class="ins-top" v-if="cal.instBook == '60'">สูงสุด</span> {{ cal.instBook }} งวด</td>
                                 </tr>
                                 <tr>
                                     <td class="cal-topic">3. ดอกเบี้ย</td>
@@ -286,28 +293,55 @@
                 cal: {
                     deep: true,
                     handler() {
-                        this.cal.toLoan = parseInt(this.cal.loan).toLocaleString('th-TH');
 
-                        if(this.cal.installments == 36) {
-                            this.cal.instBook = 36;
-                        } else if(this.cal.installments == 48) {
-                            this.cal.instBook = 48;
-                        } else if(this.cal.installments == 60) {
-                            this.cal.instBook = 60;
-                        } else if(this.cal.installments >= 72) {
-                            this.cal.instBook = 60;
-                        } 
-                        this.out.payratefi =  parseInt((((this.cal.loan * (this.cal.firate * (this.cal.installments / 12))) / 100) * 1.07).toFixed(0)).toLocaleString('th-TH')
-                        this.out.payratebook =  parseInt(((this.cal.loan * ((this.cal.bookrate) * (this.cal.instBook / 12))) / 100).toFixed(0)).toLocaleString('th-TH')
+                        if(this.cal.loan == '') {
+                            swal("กรุณากรอกจำนวนเงินกู้\nก่อนทำการคำนวณ", {
+                                icon: "warning",
+                            });
+                        } else {
+                            this.cal.toLoan = parseInt(this.cal.loan).toLocaleString('th-TH');
 
-                        this.out.paymonthfi =  parseInt((((parseInt(((this.cal.loan * (this.cal.firate * (this.cal.installments / 12))) / 100)) + parseInt(this.cal.loan)) * 1.07 ) / this.cal.installments).toFixed(0)).toLocaleString('th-TH')
-                        this.out.paymonthbook = parseInt(((parseInt(((this.cal.loan * ((this.cal.bookrate) * (this.cal.instBook / 12))) / 100)) + parseInt(this.cal.loan)) / this.cal.instBook).toFixed(0)).toLocaleString('th-TH')
+                            if(this.cal.installments == 36) {
+                                this.cal.instBook = 36;
+                            } else if(this.cal.installments == 48) {
+                                this.cal.instBook = 48;
+                            } else if(this.cal.installments == 60) {
+                                this.cal.instBook = 60;
+                            } else if(this.cal.installments >= 72) {
+                                this.cal.instBook = 60;
+                            } 
 
-                        this.out.save = parseInt(parseInt(((this.cal.loan * (this.cal.bookrate * (this.cal.instBook / 12))) / 100).toFixed(0)) - (parseInt((((this.cal.loan * (this.cal.firate * (this.cal.installments / 12))) / 100) * 1.07).toFixed(0))) - parseInt(10000)).toLocaleString('th-TH')
+                            this.out.payratefi =  parseInt((((this.cal.loan * (this.cal.firate * (this.cal.installments / 12))) / 100) * 1.07).toFixed(0)).toLocaleString('th-TH')
+                            this.out.payratebook =  parseInt(((this.cal.loan * ((this.cal.bookrate) * (this.cal.instBook / 12))) / 100).toFixed(0)).toLocaleString('th-TH')
+
+                            this.out.paymonthfi =  parseInt((((parseInt(((this.cal.loan * (this.cal.firate * (this.cal.installments / 12))) / 100)) + parseInt(this.cal.loan)) * 1.07 ) / this.cal.installments).toFixed(0)).toLocaleString('th-TH')
+                            this.out.paymonthbook = parseInt(((parseInt(((this.cal.loan * ((this.cal.bookrate) * (this.cal.instBook / 12))) / 100)) + parseInt(this.cal.loan)) / this.cal.instBook).toFixed(0)).toLocaleString('th-TH')
+                            this.out.save = parseInt(parseInt(((this.cal.loan * (this.cal.bookrate * (this.cal.instBook / 12))) / 100).toFixed(0)) - (parseInt((((this.cal.loan * (this.cal.firate * (this.cal.installments / 12))) / 100) * 1.07).toFixed(0))) - parseInt(10000)).toLocaleString('th-TH')
+                        }
+
+                        
                     }
                 }
             },
         });
+
+        function Comma(Num) { //function to add commas to textboxes
+            Num += '';
+            Num = Num.replace(',', '');
+            Num = Num.replace(',', '');
+            Num = Num.replace(',', '');
+            Num = Num.replace(',', '');
+            Num = Num.replace(',', '');
+            Num = Num.replace(',', '');
+            x = Num.split('.');
+            x1 = x[0];
+            x2 = x.length > 1 ? '.' + x[1] : '';
+            var rgx = /(\d+)(\d{3})/;
+            while (rgx.test(x1))
+                x1 = x1.replace(rgx, '$1' + ',' + '$2');
+            return x1 + x2;
+        }
+
     </script>
 </body>
 </html>
