@@ -216,24 +216,24 @@
                                 </tr>
                                 <tr>
                                     <td class="cal-topic">2. จำนวนงวด</td>
-                                    <td class="cal-refi">สูงสุด {{ cal.installments }} งวด</td>
-                                    <td class="cal-book">สูงสุด {{ cal.instBook }} งวด</td>
+                                    <td class="cal-refi">{{ cal.installments }} งวด</td>
+                                    <td class="cal-book">{{ cal.instBook }} งวด</td>
                                 </tr>
                                 <tr>
                                     <td class="cal-topic">3. ดอกเบี้ย</td>
-                                    <td class="cal-refi"><small>ดอกเบี้ยแบบคงที่</small><br /><span style="font-weight: 700;color: #ff0000;">6.8% ต่อปี</span></td>
-                                    <td class="cal-book"><small>แบบลดต้นลดดอก</small><br /><span style="font-weight: 700;color: #ff0000;">23.1% ต่อปี</span></td>
+                                    <td class="cal-refi"><small>ดอกเบี้ยแบบคงที่</small><br /><span style="font-weight: 700;color: #ff0000;">6.8% ต่อปี*</span></td>
+                                    <td class="cal-book"><small>แบบลดต้นลดดอก</small><br /><span style="font-weight: 700;color: #ff0000;">23.1% ต่อปี*</span></td>
                                 </tr>
                                 <tr>
                                     <td class="cal-topic">4. ผ่อนต่องวด</td>
-                                    <td class="cal-refi">{{ out.paymonthfi }} บาท</td>
+                                    <td class="cal-refi">{{ out.paymonthfi }} บาท<br /><small>รวมภาษีมูลค่าเพิ่มแล้ว</small></td>
                                     <td class="cal-book">{{ out.paymonthbook }} บาท</td>
                                 </tr>
                                 <tr>
                                     <td  class="cal-topic">5. รวมดอกเบี้ย<br />
                                         <small style="color:#000;padding-left:15px;">ตลอดอายุสัญญา</small>
                                     </td>
-                                    <td class="cal-refi">{{ out.payratefi }} บาท</td>
+                                    <td class="cal-refi">{{ out.payratefi }} บาท<br /><small>รวมภาษีมูลค่าเพิ่มแล้ว</small></td>
                                     <td class="cal-book">{{ out.payratebook }} บาท</td>
                                 </tr>
                                 <tr>
@@ -297,16 +297,13 @@
                         } else if(this.cal.installments >= 72) {
                             this.cal.instBook = 60;
                         } 
-                        this.out.payratefi =  parseInt(((this.cal.loan * (this.cal.firate * (this.cal.installments / 12))) / 100).toFixed(0)).toLocaleString('th-TH')
-
-
+                        this.out.payratefi =  parseInt((((this.cal.loan * (this.cal.firate * (this.cal.installments / 12))) / 100) * 1.07).toFixed(0)).toLocaleString('th-TH')
                         this.out.payratebook =  parseInt(((this.cal.loan * ((this.cal.bookrate) * (this.cal.instBook / 12))) / 100).toFixed(0)).toLocaleString('th-TH')
 
-
-                        this.out.paymonthfi =  parseInt(((parseInt(((this.cal.loan * (this.cal.firate * (this.cal.installments / 12))) / 100)) + parseInt(this.cal.loan)) / this.cal.installments).toFixed(0)).toLocaleString('th-TH')
+                        this.out.paymonthfi =  parseInt((((parseInt(((this.cal.loan * (this.cal.firate * (this.cal.installments / 12))) / 100)) + parseInt(this.cal.loan)) * 1.07 ) / this.cal.installments).toFixed(0)).toLocaleString('th-TH')
                         this.out.paymonthbook = parseInt(((parseInt(((this.cal.loan * ((this.cal.bookrate) * (this.cal.instBook / 12))) / 100)) + parseInt(this.cal.loan)) / this.cal.instBook).toFixed(0)).toLocaleString('th-TH')
 
-                        this.out.save = parseInt(parseInt(((this.cal.loan * (this.cal.bookrate * (this.cal.instBook / 12))) / 100).toFixed(0)) - (parseInt(((this.cal.loan * (this.cal.firate * (this.cal.installments / 12))) / 100).toFixed(0))) - parseInt(10000)).toLocaleString('th-TH')
+                        this.out.save = parseInt(parseInt(((this.cal.loan * (this.cal.bookrate * (this.cal.instBook / 12))) / 100).toFixed(0)) - (parseInt((((this.cal.loan * (this.cal.firate * (this.cal.installments / 12))) / 100) * 1.07).toFixed(0))) - parseInt(10000)).toLocaleString('th-TH')
                     }
                 }
             },
